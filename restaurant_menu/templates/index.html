@@ -1,0 +1,32 @@
+{% extends 'base.html'%}
+{% block content %}
+<div class="container" > 
+    <h1 align="center", style="color:red; font-weight: bold; margin-bottom:20px;"> Restaurent Menu</h1>
+        {% for meal in meals %}
+            <h2> {{meal.1}}</h2>
+                {% for row in item_list %} 
+                    {% if row.meal_type == meal.0 %}
+                        {% if row.status == 0 %}
+                            <li class="list-group-item d-flex justify-content-between align-items-center border-0 pt-0">
+                                <a href="{% url 'menu_item' row.pk %}"><h3 style="color: green">{{ row.meal }}<sub style="color:orange">(Unavalable)</sub></h3></a>
+                                <span class="badge bg-primary rouded-pills"> ${{row.price}}</span>
+                            </li>
+                            <li class="list-group-item pt-0">
+                                <p>{{ row.description }}</p>
+                            </li>
+                        {% else %}
+                            <li class="list-group-item d-flex justify-content-between align-items-center border-0 pt-0">
+                                <a href="{% url 'menu_item' row.pk %}"><h3 style="color: green">{{ row.meal }}</h3></a>
+                                <span class="badge bg-primary rouded-pills">${{row.price}}</span>
+                            </li>
+                            <li class="list-group-item pt-0">
+                                <p>{{ row.description }}</p>
+                            </li>
+                        {% endif %} 
+                    {% endif %}
+
+                {% endfor %}
+        {% endfor %}
+</div>
+
+{% endblock content %}
